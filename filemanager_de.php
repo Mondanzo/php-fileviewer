@@ -1,16 +1,16 @@
 <?php
 
 //CONFIG
-$dir = "D:";				// Path of the root directory. 
-$thisfile = "filemanager.php";		// Name of this File.
+$dir = "D:";			// Pfad zum Haupt-Verzeichnis
+$thisfile = "filemanager_de.php";		// Name dieser Datei
 $lock = "123456";
 
 
-//CODE - DO NOT CHANGE
+//CODE - NICHTS VERÄNDERN
 //
-//or change only if you know, what you are doing.
+//oder ändere doch was, wenn du weißt, was du tust.
 
-$loginform = "<p><form action=\"\" method=\"GET\">Password: </input><input type=\"password\" name=\"lock\"></input>";
+$loginform = "<p><form action=\"\" method=\"GET\">Passwort: </input><input type=\"password\" name=\"lock\"></input>";
 $rootdir = $dir;
 $rdlen = strlen($rootdir);
 if(isset($_GET['link'])){
@@ -38,7 +38,7 @@ if(isset($lock)){
 		$key = $_GET['lock'];
 	}else{
 		echo($loginform); 
-		die("Unauthorised.");
+		die("Unautorisiert.");
 	}
 }
 
@@ -60,7 +60,7 @@ $file = str_replace("..","/",$file);
 			readfile($file);
 			die();
 		} else if(isset($_GET['viewvideo'])){
-			echo '<video src="'.$thisfile.'?dir='.$_GET['dir'].'&lock='.$key.'&link='.$_GET['link'].'" controls>Oups. Your Browser doesn\'t support this video viewer...</video>';
+			echo '<video src="'.$thisfile.'?dir='.$_GET['dir'].'&lock='.$key.'&link='.$_GET['link'].'" controls>Oups. Dein Browser unterstützt leider den HTML5-Videoplayer nicht...</video>';
 			die();	 			
 		}else if(isset($_GET['viewtext'])){
 			echo '<pre>';
@@ -68,7 +68,8 @@ $file = str_replace("..","/",$file);
 			echo '</pre>';
 			die();	 			
 		}
-
+	
+	if((!isset($_GET[$lock])) && ($_GET["lock"] != $lock) ){echo($loginform); die("Unauthorised.");}
     if (file_exists($file)) {
 		header('Content-Description: File Transfer');
 		header('Content-Type: application/octet-stream');
@@ -92,15 +93,15 @@ $file = str_replace("..","/",$file);
 		$dir = str_replace('//', '/', $dir);
     }
 	$loginform = $loginform."</form><p>";
-    echo "Viewing: ".$dir."<p>";
-	if((!isset($_GET[$lock])) && ($_GET["lock"] != $lock) ){echo($loginform); die("Unauthorised.");}
+    echo "Aktuelles Verzeichnis: ".$dir."<p>";
+	if((!isset($_GET[$lock])) && ($_GET["lock"] != $lock) ){echo($loginform); die("Unautorisiert.");}
     $dh  = opendir($dir);
 	if(is_dir($dir) && isset($dh)){
 		while (false !== ($filename = readdir($dh))) {
 			$files[] = $filename;
 		}
 	}else{
-		echo "Couldn't find this directory. D:";
+		echo "Das Verzeichnis konnte nicht gefunden werden. D:";
 	}
     $files = array_diff($files, ["..", "."]);
     sort($files);
@@ -119,15 +120,15 @@ $file = str_replace("..","/",$file);
 		if(is_dir($dir."/".$filename)) {
 			echo '<a href="'.$thisfile.'?list&dir='.$fn.'/'.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' [DIR]<br>';
 		}else if($ext == "mp3"){
-			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&playaudio&link='.$filename.'&lock='.$key.'">[Play MP3]</a><br>';
+			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&playaudio&link='.$filename.'&lock='.$key.'">[MP3 wiedergeben]</a><br>';
 		} else if($ext == "png" || $ext == "jpg" || $ext == "jpeg"  || $ext == "ico" || $ext == "gif" || $ext == "svg"){
-			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewimg&link='.$filename.'&lock='.$key.'">[View Image]</a><br>';
+			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewimg&link='.$filename.'&lock='.$key.'">[Bild ansehen]</a><br>';
 		} else if($ext == "pdf"){
-			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewpdf&link='.$filename.'&lock='.$key.'">[View PDF]</a><br>';
+			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewpdf&link='.$filename.'&lock='.$key.'">[PDF ansehen]</a><br>';
 		} else if($ext == "mp4" || $ext == "webm" || $ext == "flv" || $ext == "wmv" || $ext == "mov"|| $ext == "avi" || $ext == "mpg" || $ext == "mpeg" || $ext == "m3u8" || $ext == "m4v"){
-			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewvideo&link='.$filename.'&lock='.$key.'">[View Video]</a><br>';
-		} else if($ext == "ini" || $ext == "txt" || $ext == "log" || $ext == "java" || $ext == "php"|| $ext == "htm" || $ext == "html" || $ext == "htaccess" || $ext == "cmd" || $ext == "cmd" || $ext == "sh" || $ext == "bat" || $ext == "sh"){
-			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewtext&link='.$filename.'&lock='.$key.'">[View '.strtoupper($ext).' as Text]</a><br>';
+			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewvideo&link='.$filename.'&lock='.$key.'">[Video ansehen]</a><br>';
+		} else if($ext == "ini" || $ext == "txt" || $ext == "log" || $ext == "java" || $ext == "php"|| $ext == "htm" || $ext == "html" || $ext == "htaccess" || $ext == "cmd" || $ext == "json" || $ext == "sh" || $ext == "bat" || $ext == "sh"){
+			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewtext&link='.$filename.'&lock='.$key.'">['.strtoupper($ext).' als Text anzeigen]</a><br>';
 		} else {
 			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename.'</a> - '.$finfsiz.' - ['.strtoupper($ext).']<br>'; 
 		}
