@@ -68,7 +68,8 @@ $file = str_replace("..","/",$file);
 			echo '</pre>';
 			die();	 			
 		}
-
+		
+	if((!isset($_GET[$lock])) && ($_GET["lock"] != $lock) ){echo($loginform); die("Unauthorised.");}
     if (file_exists($file)) {
 		header('Content-Description: File Transfer');
 		header('Content-Type: application/octet-stream');
@@ -126,7 +127,7 @@ $file = str_replace("..","/",$file);
 			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewpdf&link='.$filename.'&lock='.$key.'">[View PDF]</a><br>';
 		} else if($ext == "mp4" || $ext == "webm" || $ext == "flv" || $ext == "wmv" || $ext == "mov"|| $ext == "avi" || $ext == "mpg" || $ext == "mpeg" || $ext == "m3u8" || $ext == "m4v"){
 			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewvideo&link='.$filename.'&lock='.$key.'">[View Video]</a><br>';
-		} else if($ext == "ini" || $ext == "txt" || $ext == "log" || $ext == "java" || $ext == "php"|| $ext == "htm" || $ext == "html" || $ext == "htaccess" || $ext == "cmd" || $ext == "cmd" || $ext == "sh" || $ext == "bat" || $ext == "sh"){
+		} else if($ext == "ini" || $ext == "txt" || $ext == "log" || $ext == "java" || $ext == "php"|| $ext == "htm" || $ext == "html" || $ext == "htaccess" || $ext == "cmd" || $ext == "json" || $ext == "sh" || $ext == "bat" || $ext == "sh"){
 			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename, '</a> - '.$finfsiz.' - <a href="'.$thisfile.'?dir='.$_GET['dir'].'&viewtext&link='.$filename.'&lock='.$key.'">[View '.strtoupper($ext).' as Text]</a><br>';
 		} else {
 			echo '<a href="'.$thisfile.'?dir='.$_GET['dir'].'&link='.$filename.'&lock='.$key.'">'.$filename.'</a> - '.$finfsiz.' - ['.strtoupper($ext).']<br>'; 

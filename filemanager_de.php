@@ -1,7 +1,7 @@
 <?php
 
 //CONFIG
-$dir = "D:";			// Pfad zum Haupt-Verzeichnis
+$dir = "D:";				// Pfad zum Haupt-Verzeichnis
 $thisfile = "filemanager_de.php";		// Name dieser Datei
 $lock = "123456";
 
@@ -69,7 +69,7 @@ $file = str_replace("..","/",$file);
 			die();	 			
 		}
 	
-	if((!isset($_GET[$lock])) && ($_GET["lock"] != $lock) ){echo($loginform); die("Unauthorised.");}
+	if((!isset($_GET[$lock])) && ($_GET["lock"] != $lock) ){echo($loginform); die("Unautorisiert.");}
     if (file_exists($file)) {
 		header('Content-Description: File Transfer');
 		header('Content-Type: application/octet-stream');
