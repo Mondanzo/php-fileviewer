@@ -26,10 +26,12 @@ if(isset($_GET['link'])){
 	}else if(isset($_GET['viewtext'])){
 		$loginform = $loginform."<input type=\"hidden\" name=\"viewtext\">";
 	}
-	if(isset($_GET['dir'])){
-		$loginform = $loginform."<input type=\"hidden\" value=\"". $_GET['dir'] ."\"name=\"dir\">";
-	}
 	$loginform = $loginform."</form><p>";
+}else{
+	$loginform = $loginform."<input type=\"hidden\" name=\"list\">";
+}
+if(isset($_GET['dir'])){
+	$loginform = $loginform."<input type=\"hidden\" value=\"". $_GET['dir'] ."\"name=\"dir\">";
 }
 if(isset($lock)){
 	if(isset($_GET[$lock])){
@@ -38,7 +40,7 @@ if(isset($lock)){
 		$key = $_GET['lock'];
 	}else{
 		echo($loginform); 
-		die("Unautorisiert.");
+		die("<p>Unautorisiert.");
 	}
 }
 
