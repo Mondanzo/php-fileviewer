@@ -1,5 +1,5 @@
 # php-fileviewer
-It's a simple fileviewer in php. It can list directorys, show files and that's it 4 the moment.
+It's a simple fileviewer in php. It can list directorys, show files and download them. So that's it 4 the moment.
 
 
 # Config
@@ -9,7 +9,8 @@ The variable `$dir` is the path of the root-directory the filemanager should sho
 
 
 # Translation
-Feel free to translate this stuff.
+Feel free to translate this stuff. 
+
 _Languages I support at the moment:_
   * English
   * German
