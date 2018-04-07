@@ -22,3 +22,4 @@ _Languages I support at the moment:_
 - [ ] File Editor
 - [ ] add more languages (help is appreciated)
 - [ ] add more TODO
+- [ ] Thank @mondanzo 4 annoy me with security stuff. 
