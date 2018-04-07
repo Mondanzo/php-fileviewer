@@ -14,3 +14,11 @@ Feel free to translate this stuff.
 _Languages I support at the moment:_
   * English
   * German
+
+
+# TODO
+- [ ] Security patch (u know, unencrypted password -> make some SHA512-STUFF, set variables -> do some `unset()`)
+- [ ] File Uploader
+- [ ] File Editor
+- [ ] add more languages (help is appreciated)
+- [ ] add more TODO
